@@ -2,10 +2,9 @@ import React, { Component } from "react";
 import {
   Text,
   View,
-  Platform,
-  SafeAreaView,
   StatusBar,
   Image,
+  SafeAreaView,
   ScrollView,
   TouchableOpacity
 } from "react-native";
@@ -15,35 +14,30 @@ import * as f from "firebase";
 
 export default class Home extends Component {
   state = {
-    isLoading: true,
-    data: []
+    data: [],
+    isLoading: true
   };
 
   componentDidMount() {
     f.database()
       .ref("products")
       .once("value")
-      .then(data => {
-        data.forEach(item => {
+      .then(snapshot => {
+        snapshot.forEach(item => {
           this.setState({
             data: [...this.state.data, { ...item.val(), id: item.key }]
           });
         });
       })
       .then(() => {
-        this.setState({
-          isLoading: false
-        });
+        this.setState({ isLoading: false });
       });
   }
 
   render() {
     return (
       <SafeAreaView
-        style={{
-          marginTop: StatusBar.currentHeight,
-          flex: 1
-        }}
+        style={{ marginTop: StatusBar.currentHeight, width: "100%", flex: 1 }}
       >
         {this.state.isLoading ? (
           <View
@@ -54,6 +48,7 @@ export default class Home extends Component {
               justifyContent: "center"
             }}
           >
+            {console.log(this.state)}
             <Text>Loading</Text>
           </View>
         ) : (
@@ -73,67 +68,71 @@ export default class Home extends Component {
                   justifyContent: "center"
                 }}
               >
-                <Icon name="menu" />
+                <Icon name="menu" type="Feather" />
               </View>
               <View
                 style={{
                   width: "80%",
                   height: 50,
                   justifyContent: "center",
-                  alignItems: "center"
+                  alignItems: "center",
+                  paddingRight: 50
                 }}
               >
-                <Image
-                  source={Logo}
-                  style={{ width: 150, height: 40, marginRight: 70 }}
-                />
+                <Image source={Logo} style={{ width: 120, height: 40 }} />
               </View>
             </View>
 
-            {/* Body */}
-
             <ScrollView style={{ width: "100%", flex: 1 }}>
-              <View style={{ width: "100%", alignItems: "center" }}>
-                {this.state.data.map(item => (
-                  <View key={item.id} style={{ width: "90%", marginTop: 20 }}>
-                    {console.log(item.Image)}
+              {this.state.data.map(item => (
+                <View
+                  key={item.id}
+                  style={{ width: "100%", alignItems: "center" }}
+                >
+                  <View style={{ width: "90%", marginTop: 20 }}>
                     <Image
                       source={{
                         uri: item.Image
                       }}
-                      style={{ width: "100%", height: 300, borderRadius: 10 }}
+                      style={{ width: "100%", height: 200, borderRadius: 10 }}
                     />
-                    <View style={{ width: "100%", marginTop: 10 }}>
-                      <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-                        {item.Name}
-                      </Text>
-                      <Text style={{ marginTop: 10 }}>{item.Description}</Text>
-                    </View>
-                    <View style={{ marginTop: 10 }}>
-                      <TouchableOpacity
+                    <TouchableOpacity
+                      onPress={() =>
+                        this.props.navigation.navigate("Details", {
+                          data: item
+                        })
+                      }
+                    >
+                      <Text
                         style={{
-                          width: "100%",
-                          height: 50,
-                          backgroundColor: "orange",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          borderRadius: 10
+                          fontSize: 22,
+                          fontWeight: "bold",
+                          marginTop: 10
                         }}
                       >
-                        <Text
-                          style={{
-                            color: "white",
-                            fontSize: 18,
-                            fontWeight: "bold"
-                          }}
-                        >
-                          Buy Now
-                        </Text>
-                      </TouchableOpacity>
-                    </View>
+                        {item.Name}
+                      </Text>
+                    </TouchableOpacity>
+
+                    <Text style={{ marginTop: 10 }}>{item.Description}</Text>
+                    <TouchableOpacity
+                      style={{
+                        width: "100%",
+                        height: 50,
+                        backgroundColor: "orange",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        borderRadius: 10,
+                        marginTop: 10
+                      }}
+                    >
+                      <Text style={{ color: "white", fontSize: 18 }}>
+                        Buy now
+                      </Text>
+                    </TouchableOpacity>
                   </View>
-                ))}
-              </View>
+                </View>
+              ))}
             </ScrollView>
           </View>
         )}
