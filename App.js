@@ -8,18 +8,25 @@ import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import Home from "./src/screens/Home";
 import ProductDetails from "./src/screens/ProductDetails";
+import { createDrawerNavigator } from "react-navigation-drawer";
+import DrawerComponent from "./src/Components/Drawer";
 
-const stack = createStackNavigator(
+const AuthStack = createStackNavigator(
   {
-    Splash: {
-      screen: Splashscreen
-    },
     Login: {
       screen: Login
     },
     Signup: {
       screen: Signup
-    },
+    }
+  },
+  {
+    headerMode: "none"
+  }
+);
+
+const stack = createStackNavigator(
+  {
     Home: {
       screen: Home
     },
@@ -28,15 +35,36 @@ const stack = createStackNavigator(
     }
   },
   {
-    headerMode: "none",
-    initialRouteName: "Home"
+    headerMode: "none"
   }
 );
 
 const MainNav = createAppContainer(stack);
 
+const Drawer = createDrawerNavigator(
+  {
+    Splash: {
+      screen: Splashscreen
+    },
+    MainStack: {
+      screen: MainNav
+    },
+    Auth: {
+      screen: AuthStack,
+      navigationOptions: {
+        drawerLockMode: "locked-closed"
+      }
+    }
+  },
+  {
+    contentComponent: DrawerComponent
+  }
+);
+
+const DrawerNav = createAppContainer(Drawer);
+
 export default class App extends Component {
   render() {
-    return <MainNav />;
+    return <DrawerNav />;
   }
 }

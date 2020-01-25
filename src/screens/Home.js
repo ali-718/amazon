@@ -68,7 +68,11 @@ export default class Home extends Component {
                   justifyContent: "center"
                 }}
               >
-                <Icon name="menu" type="Feather" />
+                <Icon
+                  onPress={() => this.props.navigation.toggleDrawer()}
+                  name="menu"
+                  type="Feather"
+                />
               </View>
               <View
                 style={{
@@ -79,6 +83,7 @@ export default class Home extends Component {
                   paddingRight: 50
                 }}
               >
+                {console.log(this.props)}
                 <Image source={Logo} style={{ width: 120, height: 40 }} />
               </View>
             </View>

@@ -87,6 +87,22 @@ export default class Login extends Component {
           >
             <Text style={{ color: "white", fontWeight: "bold" }}>Login</Text>
           </TouchableOpacity>
+          <Text style={{ marginTop: 10, fontSize: 20, marginBottom: 10 }}>
+            OR
+          </Text>
+          <TouchableOpacity
+            style={{
+              width: 120,
+              height: 50,
+              backgroundColor: "#FA9501",
+              borderRadius: 10,
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+            onPress={() => this.props.navigation.navigate("Signup")}
+          >
+            <Text style={{ color: "white", fontWeight: "bold" }}>Signup</Text>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     );

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Text, View, Image } from "react-native";
 import Logo from "../assets/logo.png";
 import * as f from "firebase";
-import { ScrollView } from "react-native-gesture-handler";
 
 export default class Splashscreen extends Component {
   componentDidMount() {
@@ -10,7 +9,7 @@ export default class Splashscreen extends Component {
       if (user) {
         console.log("u are logged in");
         console.log(user);
-        this.props.navigation.navigate("Signup");
+        this.props.navigation.navigate("Home");
       } else {
         console.log("u are not logged in");
         this.props.navigation.navigate("Login");
