@@ -10,6 +10,8 @@ import Home from "./src/screens/Home";
 import ProductDetails from "./src/screens/ProductDetails";
 import { createDrawerNavigator } from "react-navigation-drawer";
 import DrawerComponent from "./src/Components/Drawer";
+import { Provider } from "react-redux";
+import store from "./src/store";
 
 const AuthStack = createStackNavigator(
   {
@@ -65,6 +67,10 @@ const DrawerNav = createAppContainer(Drawer);
 
 export default class App extends Component {
   render() {
-    return <DrawerNav />;
+    return (
+      <Provider store={store}>
+        <DrawerNav />
+      </Provider>
+    );
   }
 }

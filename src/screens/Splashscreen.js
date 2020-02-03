@@ -5,13 +5,14 @@ import * as f from "firebase";
 
 export default class Splashscreen extends Component {
   componentDidMount() {
+    f.auth().signOut();
     f.auth().onAuthStateChanged(user => {
       if (user) {
-        console.log("u are logged in");
-        console.log(user);
+        // console.log("u are logged in");
+        // console.log(user);
         this.props.navigation.navigate("Home");
       } else {
-        console.log("u are not logged in");
+        // console.log("u are not logged in");
         this.props.navigation.navigate("Login");
       }
     });

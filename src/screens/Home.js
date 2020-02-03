@@ -11,8 +11,9 @@ import {
 import { Icon } from "native-base";
 import Logo from "../assets/logo.png";
 import * as f from "firebase";
+import { connect } from "react-redux";
 
-export default class Home extends Component {
+class Home extends Component {
   state = {
     data: [],
     isLoading: true
@@ -48,7 +49,7 @@ export default class Home extends Component {
               justifyContent: "center"
             }}
           >
-            {console.log(this.state)}
+            {console.log(this.props)}
             <Text>Loading</Text>
           </View>
         ) : (
@@ -83,7 +84,6 @@ export default class Home extends Component {
                   paddingRight: 50
                 }}
               >
-                {console.log(this.props)}
                 <Image source={Logo} style={{ width: 120, height: 40 }} />
               </View>
             </View>
@@ -145,3 +145,9 @@ export default class Home extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  authAli: state.auth
+});
+
+export default connect(mapStateToProps)(Home);

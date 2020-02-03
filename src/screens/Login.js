@@ -10,8 +10,9 @@ import {
 } from "react-native";
 import Logo from "../assets/logo.png";
 import * as f from "firebase";
+import { connect } from "react-redux";
 
-export default class Login extends Component {
+class Login extends Component {
   state = {
     Email: "",
     Passsword: ""
@@ -38,7 +39,7 @@ export default class Login extends Component {
         }}
       >
         <Image source={Logo} style={{ width: 200, height: 80 }} />
-
+        {console.log(this.props)}
         <View style={{ width: "100%", marginTop: 50, alignItems: "center" }}>
           <TextInput
             style={{
@@ -108,3 +109,9 @@ export default class Login extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps)(Login);
