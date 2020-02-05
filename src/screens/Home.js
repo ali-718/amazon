@@ -12,6 +12,7 @@ import { Icon } from "native-base";
 import Logo from "../assets/logo.png";
 import * as f from "firebase";
 import { connect } from "react-redux";
+import { ChangeUserValue } from "../Actions/authActions";
 
 class Home extends Component {
   state = {
@@ -147,7 +148,7 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => ({
-  authAli: state.auth
+  Ali: state.auth
 });
 
 export default connect(mapStateToProps)(Home);
