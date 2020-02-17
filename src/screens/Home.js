@@ -12,7 +12,7 @@ import { Icon } from "native-base";
 import Logo from "../assets/logo.png";
 import * as f from "firebase";
 import { connect } from "react-redux";
-import { ChangeUserValue } from "../Actions/authActions";
+import { changeValue } from "../Actions/authActions";
 
 class Home extends Component {
   state = {
@@ -34,6 +34,12 @@ class Home extends Component {
       .then(() => {
         this.setState({ isLoading: false });
       });
+  }
+
+  componentWillReceiveProps(props) {
+    if (props.auth.isLogin) {
+      alert("you are logged in");
+    }
   }
 
   render() {
@@ -131,6 +137,9 @@ class Home extends Component {
                         borderRadius: 10,
                         marginTop: 10
                       }}
+                      onPress={() => {
+                        this.props.changeValue();
+                      }}
                     >
                       <Text style={{ color: "white", fontSize: 18 }}>
                         Buy now
@@ -148,7 +157,7 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => ({
-  Ali: state.auth
+  auth: state.auth
 });
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps, { changeValue })(Home);

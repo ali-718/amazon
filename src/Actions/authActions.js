@@ -1,3 +1,3 @@
-export const ChangeUserValue = () => dispatch => {
-  dispatch({ type: "CHANGE_USER_VALUE" });
+export const changeValue = () => dispatch => {
+  dispatch({ type: "CHANGE_VALUE" });
 };

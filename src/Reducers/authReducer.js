@@ -1,11 +1,16 @@
 const initialState = {
-  user: "this is just testing"
+  user: "this is just testing",
+  name: "ali haider"
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case "CHANGE_USER_VALUE":
-      return { ...state, user: "this is updated" };
+    case "CHANGE_VALUE":
+      return {
+        ...state,
+        user: "this is updated",
+        isLogin: true
+      };
     default:
       return state;
   }
