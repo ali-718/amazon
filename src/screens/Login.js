@@ -23,6 +23,7 @@ class Login extends Component {
       .signInWithEmailAndPassword(this.state.Email, this.state.Passsword)
       .then(() => {
         alert("You are logged in");
+        this.props.navigation.navigate("Home");
       })
       .catch(e => alert(e));
   };

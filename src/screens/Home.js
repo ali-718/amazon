@@ -12,7 +12,7 @@ import { Icon } from "native-base";
 import Logo from "../assets/logo.png";
 import * as f from "firebase";
 import { connect } from "react-redux";
-import { changeValue } from "../Actions/authActions";
+import { changeValue, SetUserDetails } from "../Actions/authActions";
 
 class Home extends Component {
   state = {
@@ -21,6 +21,15 @@ class Home extends Component {
   };
 
   componentDidMount() {
+    const user = {
+      avatar:
+        "https://scontent.fisb7-1.fna.fbcdn.net/v/t1.0-1/p240x240/66773205_2450461051842661_6209794807548608512_o.jpg?_nc_cat=109&_nc_sid=dbb9e7&_nc_ohc=nki_F2ddwCEAX-9kFzg&_nc_ht=scontent.fisb7-1.fna&_nc_tp=6&oh=c7462d8eda7de9fb71e1e46c4f9c10c7&oe=5EBA629A",
+      name: "Ali Haider",
+      email: "alimurtuza718@gmail.com"
+    };
+
+    this.props.SetUserDetails(user);
+
     f.database()
       .ref("products")
       .once("value")
@@ -160,4 +169,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { changeValue })(Home);
+export default connect(mapStateToProps, { changeValue, SetUserDetails })(Home);

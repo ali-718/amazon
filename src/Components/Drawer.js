@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { Text, View, SafeAreaView, TouchableOpacity } from "react-native";
 import { Thumbnail, Icon } from "native-base";
 import * as f from "firebase";
+import { connect } from "react-redux";
 
-export default class Drawer extends Component {
+class Drawer extends Component {
   render() {
     return (
       <SafeAreaView>
@@ -18,14 +19,17 @@ export default class Drawer extends Component {
           <Thumbnail
             large
             source={{
-              uri:
-                "https://cdn.pixabay.com/photo/2020/01/16/17/21/pantheon-4771206_960_720.jpg"
+              uri: this.props.auth.user
+                ? this.props.auth.user.avatar
+                : "https://cdn.pixabay.com/photo/2020/01/16/17/21/pantheon-4771206_960_720.jpg"
             }}
           />
           <Text style={{ fontSize: 20, marginTop: 10, fontWeight: "bold" }}>
-            Ali Haider
+            {this.props.auth.user ? this.props.auth.user.name : ""}
           </Text>
-          <Text style={{ fontSize: 15, marginTop: 10 }}>ali@info.com</Text>
+          <Text style={{ fontSize: 15, marginTop: 10 }}>
+            {this.props.auth.user ? this.props.auth.user.email : ""}
+          </Text>
 
           <TouchableOpacity
             onPress={() => {
@@ -82,3 +86,9 @@ export default class Drawer extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps)(Drawer);

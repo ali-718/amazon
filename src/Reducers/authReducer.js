@@ -1,5 +1,5 @@
 const initialState = {
-  user: "this is just testing",
+  user: {},
   name: "ali haider"
 };
 
@@ -10,6 +10,11 @@ export default function(state = initialState, action) {
         ...state,
         user: "this is updated",
         isLogin: true
+      };
+    case "SET_USER_VALUE":
+      return {
+        ...state,
+        user: action.payload
       };
     default:
       return state;
